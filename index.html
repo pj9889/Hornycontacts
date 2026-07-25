@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locanto Meetups</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        /* ব্যাকগ্রাউন্ড স্লাইডার */
+        .bg-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .bg-slider img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .bg-slider img.active {
+            opacity: 1;
+        }
+
+        /* ওভারলে */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 2;
+        }
+
+        /* মেইন কন্টেন্ট */
+        .content {
+            position: relative;
+            z-index: 3;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .logo-banner {
+            max-width: 220px;
+            width: 80%;
+            margin-bottom: 12px;
+        }
+
+        .powered-by {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Locanto কালারিং Style */
+        .locanto {
+            font-weight: bold;
+        }
+        .locanto .lo { color: #007bff; }     /* Blue */
+        .locanto .can { color: #ff9800; }    /* Lite Orange */
+        .locanto .to { color: #e65100; }     /* Deep Orange */
+
+        .description {
+            max-width: 480px;
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* অফার বাটন */
+        .cta-btn {
+            background: linear-gradient(135deg, #ff0055, #ff5000);
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 16px 36px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(255, 0, 85, 0.4);
+            transition: transform 0.2s, background 0.3s;
+            text-transform: uppercase;
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* বাফারিং লোডার স্ক্রিন (Blur Effect) */
+        .loading-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 10;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            border-top: 5px solid #ff0055;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-top: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- স্লাইডার ইমেজ (১ সেকেন্ড পর পর চেঞ্জ হবে) -->
+    <div class="bg-slider">
+        <img src="fuck1.webp" class="active" alt="Background 1">
+        <img src="fuck2.webp" alt="Background 2">
+        <img src="fuck3.webp" alt="Background 3">
+        <img src="fuck4.webp" alt="Background 4">
+        <img src="fuck5.webp" alt="Background 5">
+    </div>
+
+    <!-- ব্যাকগ্রাউন্ড কালো শেড -->
+    <div class="overlay"></div>
+
+    <!-- ল্যান্ডিং পেজের কন্টেন্ট -->
+    <div class="content">
+        <img src="fucklogo.webp" alt="Logo" class="logo-banner">
+        
+        <div class="powered-by">
+            Powered by <span class="locanto"><span class="lo">Lo</span><span class="can">can</span><span class="to">to</span></span>
+        </div>
+
+        <div class="description">
+            Thousands of <span class="locanto"><span class="lo">Lo</span><span class="can">can</span><span class="to">to</span></span> Escorts, single women, and single moms are using this website for casual hookups and looking for free fucks. All users have 100% verified profiles. This site is specifically designed for <span class="locanto"><span class="lo">Lo</span><span class="can">can</span><span class="to">to</span></span> users to connect for free fucks.
+        </div>
+
+        <button class="cta-btn" onclick="handleClick()">Let's Free Fuck</button>
+    </div>
+
+    <!-- ৮০০% ব্লার ও লোডিং স্ক্রিন -->
+    <div class="loading-screen" id="loader">
+        <img src="fucklogo.webp" alt="Logo" style="max-width: 180px; margin-bottom: 10px;">
+        <h3 style="font-weight: 500;">Free Signup Page Loading...</h3>
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        // ১. অটোমেটিক ইমেজ স্লাইডার (১ সেকেন্ড পর পর)
+        const images = document.querySelectorAll('.bg-slider img');
+        let currentIndex = 0;
+
+        setInterval(() => {
+            images[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.add('active');
+        }, 1000);
+
+        // ২. অফার লিংক (এখানে আপনার CPA / Affiliate Link বসাবেন)
+        const affiliateLink = "YOUR_AFFILIATE_LINK_HERE";
+
+        // ৩. বট প্রোটেকশন (প্রথম ২ সেকেন্ড ক্লিক লক থাকবে)
+        let canClick = false;
+        setTimeout(() => {
+            canClick = true;
+        }, 2000);
+
+        // ৪. বাটনে ক্লিক করার ফাংশন
+        function handleClick() {
+            if (!canClick) return; // ২ সেকেন্ডের আগে বট বা ক্লিক কাজ করবে না
+
+            showLoaderAndRedirect();
+        }
+
+        function showLoaderAndRedirect() {
+            const loader = document.getElementById('loader');
+            loader.style.display = 'flex';
+
+            // ১ সেকেন্ড ফেইক লোডিং দেখিয়ে অফার লিংকে পাঠাবে
+            setTimeout(() => {
+                window.location.href = affiliateLink;
+            }, 1000);
+        }
+
+        // ৫. ব্যাক বাটন রিডাইরেক্ট (ভিজিটর ব্যাক করলে আবার ১ সেকেন্ড লোডার দেখিয়ে অফার লিংকে পাঠাবে)
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.pushState(null, null, location.href);
+            showLoaderAndRedirect();
+        };
+    </script>
+</body>
+</html>
