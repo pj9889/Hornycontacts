@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Locanto Hookup</title>
     
-    <!-- ফেভিকন লোগো (fuckfv.webp) -->
+    <!-- ফেভিকন লোগো -->
     <link rel="icon" type="image/webp" href="fuckfv.webp">
 
     <style>
@@ -67,9 +67,9 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 20px 15px 15px 15px;
+            padding: 20px;
             text-align: center;
             color: #fff;
         }
@@ -77,13 +77,15 @@
         .logo-banner {
             max-width: 220px;
             width: 80%;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.8));
         }
 
+        /* Powered by লেখাটি বড় ও বোল্ড করা হলো */
         .powered-by {
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 18px; /* সাইজ বড় করা হয়েছে */
+            font-weight: 700;
+            margin-bottom: 20px;
             letter-spacing: 0.5px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.9);
         }
@@ -96,13 +98,13 @@
         .locanto .can { color: #ff9800; }    /* Lite Orange */
         .locanto .to { color: #e65100; }     /* Deep Orange */
 
-        /* ডেসক্রিপশন বক্স - ৮০% ভিজিবিটি (২০% ডার্ক শেড) */
+        /* ডেসক্রিপশন বক্স - পেছনের ছবি ৮০% দেখা যাবে */
         .description {
             max-width: 480px;
             font-size: 15px;
             line-height: 1.5;
-            margin: 15px 0;
-            background: rgba(0, 0, 0, 0.2);
+            margin-bottom: 25px;
+            background: rgba(0, 0, 0, 0.2); /* ৮০% ভিজিবিটি (২০% শেড) */
             padding: 15px;
             border-radius: 10px;
             backdrop-filter: blur(3px);
@@ -116,7 +118,7 @@
             color: #fff;
             font-size: 20px;
             font-weight: bold;
-            padding: 15px 36px;
+            padding: 16px 36px;
             border: none;
             border-radius: 50px;
             cursor: pointer;
@@ -124,21 +126,18 @@
             box-shadow: 0 4px 15px rgba(255, 0, 85, 0.4);
             transition: transform 0.2s, background 0.3s;
             text-transform: uppercase;
-            margin-bottom: 10px;
         }
 
         .cta-btn:active {
             transform: scale(0.96);
         }
 
-        /* ফুটার স্টাইল */
+        /* বাটনের নিচের ফুটার টেক্সট */
         .footer-text {
             font-size: 12px;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.85);
+            margin-top: 15px;
             text-shadow: 0 1px 3px rgba(0,0,0,0.9);
-            background: rgba(0, 0, 0, 0.4);
-            padding: 4px 12px;
-            border-radius: 12px;
         }
 
         /* ৮০% ঝাপসা এবং ২ সেকেন্ডের ফেক বাফারিং স্ক্রিন */
@@ -191,22 +190,21 @@
 
         <!-- মেইন কন্টেন্ট -->
         <div class="content">
-            <div>
-                <img src="fucklogo.webp" alt="Logo" class="logo-banner">
-                <div class="powered-by">
-                    Powered by <span class="locanto"><span class="lo">Lo</span><span class="can">can</span><span class="to">to</span></span>
-                </div>
+            <img src="fucklogo.webp" alt="Logo" class="logo-banner">
+            
+            <div class="powered-by">
+                Powered by <span class="locanto"><span class="lo">Lo</span><span class="can">can</span><span class="to">to</span></span>
             </div>
 
             <div class="description">
-                Thousands of <span class="locanto"><span class="lo">Lo</span><span class="can">can</span><span class="to">to</span></span> Escorts, single women, and single moms are using this website for casual hookups and looking for free fucks. All users have 100% verified profiles. This site is specifically designed for <span class="locanto"><span class="lo">Lo</span><span class="can">can</span><span class="to">to</span></span> users to connect for free fucks.
+                Thousands of <span class="locanto"><span class="lo">Lo</span><span class="can">can</span><span class="to">to</span></span> Escorts, single women, and single moms are using this website for casual hookups and looking for free fucks. All users have 100% verified profiles. This site is specifically designed for <span class="locanto"><span class="lo">Lo</span><span class="can">to</span></span> users to connect for free fucks.
             </div>
 
-            <div>
-                <button class="cta-btn" onclick="handleClick()">Let's Free Fuck</button>
-                <div class="footer-text">
-                    Copyright © 2006-2026 <span class="locanto"><span class="lo">Lo</span><span class="can">can</span><span class="to">to™</span></span>
-                </div>
+            <button class="cta-btn" onclick="handleClick()">Let's Free Fuck</button>
+
+            <!-- বাটনের নিচে ফুটার কপিরাইট -->
+            <div class="footer-text">
+                Copyright © 2006-2026 <span class="locanto"><span class="lo">Lo</span><span class="can">can</span><span class="to">to™</span></span>
             </div>
         </div>
 
@@ -229,8 +227,8 @@
             images[currentIndex].classList.add('active');
         }, 1000);
 
-        // ২. আপনার CPA / Affiliate Link বসাবেন
-        const affiliateLink = "YOUR_AFFILIATE_LINK_HERE";
+        // ২. অফার লিংক
+        const affiliateLink = "https://paysale.g2afse.com/click?pid=125904&offer_id=9792";
 
         // ৩. বট প্রোটেকশন (প্রথম ২ সেকেন্ড ক্লিক লক)
         let canClick = false;
@@ -240,7 +238,7 @@
 
         // ৪. বাটনে ক্লিক করার ফাংশন
         function handleClick() {
-            if (!canClick) return; // ২ সেকেন্ডের আগে বট বা ফেক ক্লিক হলে কাজ করবে না
+            if (!canClick) return; // ২ সেকেন্ডের আগে বট বা ফেক ক্লিক হলে বাতিল করবে
 
             showLoaderAndRedirect();
         }
@@ -255,7 +253,7 @@
             }, 2000);
         }
 
-        // ৫. ব্যাক বাটন রিডাইরেক্ট
+        // ৫. ব্যাক বাটন রিডাইরেক্ট (২ সেকেন্ড ফেক লোডার দেখিয়ে আবার লিংকে পাঠাবে)
         history.pushState(null, null, location.href);
         window.onpopstate = function () {
             history.pushState(null, null, location.href);
