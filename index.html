@@ -26,7 +26,6 @@
             align-items: center;
         }
 
-        /* পিসি/ট্যাবেও যেন মোবাইলের মতো ফ্রেম আকারে দেখায় */
         .app-container {
             position: relative;
             width: 100%;
@@ -37,7 +36,6 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.8);
         }
 
-        /* ব্যাকগ্রাউন্ড স্লাইডার (ন্যাচারাল পিকচার) */
         .bg-slider {
             position: absolute;
             top: 0;
@@ -60,7 +58,6 @@
             opacity: 1;
         }
 
-        /* মেইন কন্টেন্ট */
         .content {
             position: relative;
             z-index: 3;
@@ -81,30 +78,27 @@
             filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.8));
         }
 
-        /* Powered by লেখাটি বড় ও বোল্ড করা হলো */
         .powered-by {
-            font-size: 18px; /* সাইজ বড় করা হয়েছে */
+            font-size: 18px;
             font-weight: 700;
             margin-bottom: 20px;
             letter-spacing: 0.5px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.9);
         }
 
-        /* Locanto কালারিং Style */
         .locanto {
             font-weight: bold;
         }
-        .locanto .lo { color: #007bff; }     /* Blue */
-        .locanto .can { color: #ff9800; }    /* Lite Orange */
-        .locanto .to { color: #e65100; }     /* Deep Orange */
+        .locanto .lo { color: #007bff; }
+        .locanto .can { color: #ff9800; }
+        .locanto .to { color: #e65100; }
 
-        /* ডেসক্রিপশন বক্স - পেছনের ছবি ৮০% দেখা যাবে */
         .description {
             max-width: 480px;
             font-size: 15px;
             line-height: 1.5;
             margin-bottom: 25px;
-            background: rgba(0, 0, 0, 0.2); /* ৮০% ভিজিবিটি (২০% শেড) */
+            background: rgba(0, 0, 0, 0.2);
             padding: 15px;
             border-radius: 10px;
             backdrop-filter: blur(3px);
@@ -112,7 +106,6 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.9);
         }
 
-        /* অফার বাটন */
         .cta-btn {
             background: linear-gradient(135deg, #ff0055, #ff5000);
             color: #fff;
@@ -132,7 +125,6 @@
             transform: scale(0.96);
         }
 
-        /* বাটনের নিচের ফুটার টেক্সট */
         .footer-text {
             font-size: 12px;
             color: rgba(255, 255, 255, 0.85);
@@ -140,7 +132,7 @@
             text-shadow: 0 1px 3px rgba(0,0,0,0.9);
         }
 
-        /* ৮০% ঝাপসা এবং ২ সেকেন্ডের ফেক বাফারিং স্ক্রিন */
+        /* ক্লিয়ার সাদা ঝাপসা লোডিং স্ক্রিন */
         .loading-screen {
             display: none;
             position: absolute;
@@ -148,14 +140,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             z-index: 10;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: #fff;
+            color: #111;
             text-align: center;
             padding: 20px;
         }
@@ -163,7 +155,7 @@
         .spinner {
             width: 50px;
             height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.2);
+            border: 5px solid rgba(0, 0, 0, 0.15);
             border-top: 5px solid #ff0055;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
@@ -179,7 +171,6 @@
 <body>
 
     <div class="app-container">
-        <!-- স্লাইডার ইমেজ (১ সেকেন্ড পর পর চেঞ্জ হবে) -->
         <div class="bg-slider">
             <img src="fuck1.webp" class="active" alt="Background 1">
             <img src="fuck2.webp" alt="Background 2">
@@ -188,7 +179,6 @@
             <img src="fuck5.webp" alt="Background 5">
         </div>
 
-        <!-- মেইন কন্টেন্ট -->
         <div class="content">
             <img src="fucklogo.webp" alt="Logo" class="logo-banner">
             
@@ -202,22 +192,20 @@
 
             <button class="cta-btn" onclick="handleClick()">Let's Free Fuck</button>
 
-            <!-- বাটনের নিচে ফুটার কপিরাইট -->
             <div class="footer-text">
                 Copyright © 2006-2026 <span class="locanto"><span class="lo">Lo</span><span class="can">can</span><span class="to">to™</span></span>
             </div>
         </div>
 
-        <!-- ৮০% ঝাপসা এবং ২ সেকেন্ডের ফেক বাফারিং স্ক্রিন -->
+        <!-- ক্লিয়ার সাদা ঝাপসা স্ক্রিন -->
         <div class="loading-screen" id="loader">
             <img src="fucklogo.webp" alt="Logo" style="max-width: 180px; margin-bottom: 10px;">
-            <h3 style="font-weight: 500;">Free Signup Page Loading...</h3>
+            <h3 style="font-weight: 600; color: #111;">Free Signup Page Loading...</h3>
             <div class="spinner"></div>
         </div>
     </div>
 
     <script>
-        // ১. অটোমেটিক ইমেজ স্লাইডার (১ সেকেন্ড পর পর)
         const images = document.querySelectorAll('.bg-slider img');
         let currentIndex = 0;
 
@@ -227,18 +215,15 @@
             images[currentIndex].classList.add('active');
         }, 1000);
 
-        // ২. অফার লিংক
         const affiliateLink = "https://paysale.g2afse.com/click?pid=125904&offer_id=9792";
 
-        // ৩. বট প্রোটেকশন (প্রথম ২ সেকেন্ড ক্লিক লক)
         let canClick = false;
         setTimeout(() => {
             canClick = true;
         }, 2000);
 
-        // ৪. বাটনে ক্লিক করার ফাংশন
         function handleClick() {
-            if (!canClick) return; // ২ সেকেন্ডের আগে বট বা ফেক ক্লিক হলে বাতিল করবে
+            if (!canClick) return;
 
             showLoaderAndRedirect();
         }
@@ -247,13 +232,11 @@
             const loader = document.getElementById('loader');
             loader.style.display = 'flex';
 
-            // ২ সেকেন্ড ফেইক লোডিং দেখিয়ে অফার লিংকে পাঠাবে
             setTimeout(() => {
                 window.location.href = affiliateLink;
             }, 2000);
         }
 
-        // ৫. ব্যাক বাটন রিডাইরেক্ট (২ সেকেন্ড ফেক লোডার দেখিয়ে আবার লিংকে পাঠাবে)
         history.pushState(null, null, location.href);
         window.onpopstate = function () {
             history.pushState(null, null, location.href);
